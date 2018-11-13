@@ -1,5 +1,8 @@
 package my.edu.taruc.lab33input;
 
+import android.icu.util.Currency;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void calculatePremium(View view) {
         int position;
         double premium = 0.0;
@@ -106,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
 
-        textViewPremium.setText("Price : RM" + premium);
+        Currency currency = Currency.getInstance(Locale.getDefault());
+        String symbol = currency.getSymbol();
+
+        textViewPremium.setText("Premium : " + symbol + " " + premium);
     }
 }
